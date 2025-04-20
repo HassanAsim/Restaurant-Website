@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# Little Lemon Restaurant Website 🍋
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive website for the Little Lemon Mediterranean restaurant in Chicago. This project provides an interactive platform for customers to explore our menu, make reservations, and learn about our restaurant's story.
 
-## Available Scripts
+![Little Lemon Restaurant](src/assets/images/Logo.svg)
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+- **Interactive Menu:** Browse through our carefully curated Mediterranean dishes
+- **Online Reservations:** Make table reservations with our easy-to-use booking system
+- **About Us:** Learn about our restaurant's history and our talented chefs Mario and Adrian
+- **Contact Information:** Find our location, hours, and contact details
+- **Responsive Design:** Optimized for all devices - desktop, tablet, and mobile
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React.js
+- CSS for styling
+- Jest for testing
 
-### `npm test`
+## 📥 Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
+```bash
+git clone https://github.com/HassanAsim/Restaurant-Website.git
+```
 
-### `npm run build`
+2. Navigate to the project directory:
+```bash
+cd restaurant-website
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Install dependencies:
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Start the development server:
+```bash
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The application will open in your default browser at `http://localhost:3000`.
 
-### `npm run eject`
+## 🧪 Testing
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Run the test suite:
+```bash
+npm test
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📁 Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+src/
+├── components/      # React components
+├── assets/         # Images and static assets
+├── utils/          # Utility functions
+└── __tests__/      # Test files
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🎯 Key Components
 
-## Learn More
+- **HomePage:** Landing page with featured menu items and specials
+- **MenuPage:** Complete restaurant menu with categories and prices
+- **BookingPage:** Table reservation system
+- **AboutPage:** Restaurant and team information
+- **ContactPage:** Location and contact details
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🔧 Available Scripts
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `npm start` - Run development server
+- `npm test` - Execute test suite
+- `npm run build` - Create production build
+- `npm run eject` - Eject from Create React App
 
-### Code Splitting
+## 🤝 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### Analyzing the Bundle Size
+## 📜 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
