@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 function Nav() {
   return (
-    <nav>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/menu">Menu</Link></li>
-        <li><Link to="/booking">Reservations</Link></li>
-        <li><Link to="/order">Order Online</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
+    <nav aria-label="Primary navigation">
+      <ul role="menubar">
+        <li role="none"><Link to="/" role="menuitem" aria-current="page">Home</Link></li>
+        <li role="none"><Link to="/about" role="menuitem">About</Link></li>
+        <li role="none"><Link to="/menu" role="menuitem">Menu</Link></li>
+        <li role="none"><Link to="/booking" role="menuitem">Reservations</Link></li>
+        <li role="none"><Link to="/order" role="menuitem">Order Online</Link></li>
+        <li role="none"><Link to="/contact" role="menuitem">Contact</Link></li>
       </ul>
     </nav>
   );

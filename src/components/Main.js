@@ -37,11 +37,11 @@ function Main() {
   };
 
   return (
-    <main>
+    <main role="main" id="main-content">
       <Routes>
         <Route path="/" element={
-          <section className="hero">
-            <h1>Welcome to Little Lemon</h1>
+          <section className="hero" aria-labelledby="welcome-header">
+            <h1 id="welcome-header">Welcome to Little Lemon</h1>
             <p>We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</p>
           </section>
         } />

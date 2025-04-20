@@ -9,6 +9,9 @@ import Footer from './components/Footer';
 function App() {
   return (
     <BrowserRouter>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <Header />
       <Nav />
       <Main />
