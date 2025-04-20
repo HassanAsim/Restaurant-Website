@@ -1,6 +1,10 @@
 import React, { useReducer } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import HomePage from './HomePage';
+import AboutPage from './AboutPage';
+import MenuPage from './MenuPage';
 import BookingPage from './BookingPage';
+import ContactPage from './ContactPage';
 import ConfirmedBooking from './ConfirmedBooking';
 import { fetchAPI, submitAPI } from '../utils/api';
 
@@ -39,12 +43,9 @@ function Main() {
   return (
     <main role="main" id="main-content">
       <Routes>
-        <Route path="/" element={
-          <section className="hero" aria-labelledby="welcome-header">
-            <h1 id="welcome-header">Welcome to Little Lemon</h1>
-            <p>We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</p>
-          </section>
-        } />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/menu" element={<MenuPage />} />
         <Route path="/booking" element={
           <BookingPage 
             availableTimes={availableTimes} 
@@ -53,6 +54,7 @@ function Main() {
           />
         } />
         <Route path="/booking-confirmed" element={<ConfirmedBooking />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </main>
   );

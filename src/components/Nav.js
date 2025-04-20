@@ -9,7 +9,6 @@ function Nav() {
         <li role="none"><Link to="/about" role="menuitem">About</Link></li>
         <li role="none"><Link to="/menu" role="menuitem">Menu</Link></li>
         <li role="none"><Link to="/booking" role="menuitem">Reservations</Link></li>
-        <li role="none"><Link to="/order" role="menuitem">Order Online</Link></li>
         <li role="none"><Link to="/contact" role="menuitem">Contact</Link></li>
       </ul>
     </nav>

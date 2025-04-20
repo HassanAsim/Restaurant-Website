@@ -1,155 +1,193 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 
-function BookingForm({ availableTimes = [], updateTimes, submitForm }) {
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('17:00');
-  const [guests, setGuests] = useState(1);
-  const [occasion, setOccasion] = useState('Birthday');
-  const [errors, setErrors] = useState({});
-  const [isFormValid, setIsFormValid] = useState(false);
-  const navigate = useNavigate();
+export default function BookingForm(props) {
+    const [formData, setFormData] = useState({
+        date: '',
+        time: '',
+        guests: '',
+        occasion: '',
+        name: '',
+        email: '',
+        phone: ''
+    });
 
-  // Get today's date in YYYY-MM-DD format for min date attribute
-  const today = new Date().toISOString().split('T')[0];
+    const [showUserInfo, setShowUserInfo] = useState(false);
+    const [errors, setErrors] = useState({});
 
-  // Validate all form fields
-  const validateForm = () => {
-    const newErrors = {};
-    
-    // Date validation
-    if (!date) {
-      newErrors.date = 'Please choose a date';
-    } else if (new Date(date) < new Date(today)) {
-      newErrors.date = 'Please choose a future date';
-    }
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+    };
 
-    // Time validation
-    if (!time) {
-      newErrors.time = 'Please select a time';
-    } else if (!availableTimes.includes(time)) {
-      newErrors.time = 'Please select an available time slot';
-    }
+    const validateForm = () => {
+        const newErrors = {};
+        
+        if (!formData.date) newErrors.date = 'Date is required';
+        if (!formData.time) newErrors.time = 'Time is required';
+        if (!formData.guests) newErrors.guests = 'Number of guests is required';
+        
+        if (showUserInfo) {
+            if (!formData.name) newErrors.name = 'Name is required';
+            if (!formData.email) newErrors.email = 'Email is required';
+            else if (!validateEmail(formData.email)) newErrors.email = 'Invalid email format';
+            if (!formData.phone) newErrors.phone = 'Phone number is required';
+            else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = 'Phone number must be 10 digits';
+        }
 
-    // Guests validation
-    if (!guests) {
-      newErrors.guests = 'Please enter number of guests';
-    } else if (guests < 1) {
-      newErrors.guests = 'Minimum 1 guest required';
-    } else if (guests > 10) {
-      newErrors.guests = 'Maximum 10 guests allowed';
-    }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
-    // Occasion validation
-    if (!occasion) {
-      newErrors.occasion = 'Please select an occasion';
-    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        if (!showUserInfo) {
+            if (validateForm()) {
+                setShowUserInfo(true);
+            }
+        } else {
+            if (validateForm()) {
+                props.submitForm(formData);
+            }
+        }
+    };
 
-  // Update form validity whenever fields change
-  useEffect(() => {
-    setIsFormValid(validateForm());
-  }, [date, time, guests, occasion]);
+    return (
+        <div>
+            <form onSubmit={handleSubmit} className="booking-form">
+                {!showUserInfo ? (
+                    <>
+                        <h2>Reservation Details</h2>
+                        <div className="form-field">
+                            <label htmlFor="date">Choose date</label>
+                            <input
+                                type="date"
+                                id="date"
+                                name="date"
+                                value={formData.date}
+                                onChange={handleChange}
+                                aria-invalid={!!errors.date}
+                                required
+                            />
+                            {errors.date && <span className="error-message">{errors.date}</span>}
+                        </div>
 
-  const handleDateChange = (e) => {
-    const newDate = e.target.value;
-    setDate(newDate);
-    updateTimes(newDate);
-  };
+                        <div className="form-field">
+                            <label htmlFor="time">Choose time</label>
+                            <select
+                                id="time"
+                                name="time"
+                                value={formData.time}
+                                onChange={handleChange}
+                                aria-invalid={!!errors.time}
+                                required
+                            >
+                                <option value="">Select a time</option>
+                                {props.availableTimes.map(time => 
+                                    <option key={time} value={time}>{time}</option>
+                                )}
+                            </select>
+                            {errors.time && <span className="error-message">{errors.time}</span>}
+                        </div>
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      const formData = {
-        date,
-        time,
-        guests,
-        occasion,
-      };
-      submitForm(formData);
-    }
-  };
+                        <div className="form-field">
+                            <label htmlFor="guests">Number of guests</label>
+                            <input
+                                type="number"
+                                placeholder="1"
+                                min="1"
+                                max="10"
+                                id="guests"
+                                name="guests"
+                                value={formData.guests}
+                                onChange={handleChange}
+                                aria-invalid={!!errors.guests}
+                                required
+                            />
+                            {errors.guests && <span className="error-message">{errors.guests}</span>}
+                        </div>
 
-  return (
-    <form style={{ display: 'grid', maxWidth: '200px', gap: '20px' }} onSubmit={handleSubmit} noValidate>
-      <div className="form-field">
-        <label htmlFor="res-date">Choose date *</label>
-        <input 
-          type="date" 
-          id="res-date" 
-          value={date} 
-          onChange={handleDateChange}
-          min={today}
-          required
-          aria-invalid={errors.date ? "true" : "false"}
-          aria-describedby="date-error"
-        />
-        {errors.date && <span id="date-error" className="error-message">{errors.date}</span>}
-      </div>
-      
-      <div className="form-field">
-        <label htmlFor="res-time">Choose time *</label>
-        <select 
-          id="res-time" 
-          value={time} 
-          onChange={(e) => setTime(e.target.value)}
-          required
-          aria-invalid={errors.time ? "true" : "false"}
-          aria-describedby="time-error"
-        >
-          {availableTimes.map(timeSlot => (
-            <option key={timeSlot}>{timeSlot}</option>
-          ))}
-        </select>
-        {errors.time && <span id="time-error" className="error-message">{errors.time}</span>}
-      </div>
+                        <div className="form-field">
+                            <label htmlFor="occasion">Occasion</label>
+                            <select
+                                id="occasion"
+                                name="occasion"
+                                value={formData.occasion}
+                                onChange={handleChange}
+                                aria-invalid={!!errors.occasion}
+                                required
+                            >
+                                <option value="">Select an occasion</option>
+                                <option value="Birthday">Birthday</option>
+                                <option value="Anniversary">Anniversary</option>
+                                <option value="Business">Business</option>
+                            </select>
+                            {errors.occasion && <span className="error-message">{errors.occasion}</span>}
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <h2>Personal Information</h2>
+                        <div className="form-field">
+                            <label htmlFor="name">Full Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                aria-invalid={!!errors.name}
+                                required
+                            />
+                            {errors.name && <span className="error-message">{errors.name}</span>}
+                        </div>
 
-      <div className="form-field">
-        <label htmlFor="guests">Number of guests *</label>
-        <input 
-          type="number" 
-          id="guests" 
-          min="1" 
-          max="10" 
-          value={guests} 
-          onChange={(e) => setGuests(parseInt(e.target.value) || '')}
-          required
-          aria-invalid={errors.guests ? "true" : "false"}
-          aria-describedby="guests-error"
-        />
-        {errors.guests && <span id="guests-error" className="error-message">{errors.guests}</span>}
-      </div>
+                        <div className="form-field">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                aria-invalid={!!errors.email}
+                                required
+                            />
+                            {errors.email && <span className="error-message">{errors.email}</span>}
+                        </div>
 
-      <div className="form-field">
-        <label htmlFor="occasion">Occasion *</label>
-        <select 
-          id="occasion" 
-          value={occasion} 
-          onChange={(e) => setOccasion(e.target.value)}
-          required
-          aria-invalid={errors.occasion ? "true" : "false"}
-          aria-describedby="occasion-error"
-        >
-          <option value="">Select an occasion</option>
-          <option>Birthday</option>
-          <option>Anniversary</option>
-        </select>
-        {errors.occasion && <span id="occasion-error" className="error-message">{errors.occasion}</span>}
-      </div>
+                        <div className="form-field">
+                            <label htmlFor="phone">Phone Number</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                aria-invalid={!!errors.phone}
+                                required
+                            />
+                            {errors.phone && <span className="error-message">{errors.phone}</span>}
+                        </div>
+                    </>
+                )}
 
-      <button 
-        type="submit" 
-        className="submit-button" 
-        disabled={!isFormValid}
-        aria-label={isFormValid ? "Submit reservation" : "Form has errors, please correct them"}
-      >
-        Make Your Reservation
-      </button>
-    </form>
-  );
+                <button 
+                    type="submit" 
+                    className="submit-button"
+                >
+                    {!showUserInfo ? "Continue to Verification" : "Make Your Reservation"}
+                </button>
+            </form>
+        </div>
+    );
 }
-
-export default BookingForm;
