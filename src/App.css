@@ -119,6 +119,55 @@ main {
   margin: -2rem -2rem 2rem -2rem;
 }
 
+/* Booking Page Styles */
+.booking-page {
+  padding: 2rem;
+}
+
+.booking-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.booking-container form {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 100%;
+}
+
+.booking-container label {
+  font-weight: bold;
+  color: #495e57;
+}
+
+.booking-container input,
+.booking-container select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.booking-container .submit-button {
+  background-color: #f4ce14;
+  color: #333;
+  padding: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.booking-container .submit-button:hover {
+  background-color: #edb90e;
+}
+
 /* Footer Styles */
 footer {
   background-color: #333;
@@ -202,5 +251,10 @@ footer {
 
   .hero {
     margin: -1rem -1rem 1rem -1rem;
+  }
+
+  .booking-container {
+    margin: 1rem;
+    padding: 1rem;
   }
 }
